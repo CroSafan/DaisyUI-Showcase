@@ -1,0 +1,19 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<form class="time-filter" method="get" action="${pageContext.request.contextPath}${current.path}">
+  <div class="time-filter-left">
+    <span class="section-kicker">VIEWING</span>
+    <strong><c:out value="${periodLabel}"/></strong>
+    <span class="badge badge-ghost"><c:out value="${team}"/> team</span>
+  </div>
+  <div class="time-filter-actions">
+    <label class="sr-only" for="time-month">Month</label>
+    <input id="time-month" class="input input-bordered input-sm" type="month" name="month" value="${period}">
+    <label class="sr-only" for="time-team">Department</label>
+    <select id="time-team" class="select select-bordered select-sm" name="team">
+      <c:forEach items="${teams}" var="option">
+        <option value="${option}" ${team eq option ? 'selected' : ''}><c:out value="${option}"/></option>
+      </c:forEach>
+    </select>
+    <button type="submit" class="btn btn-primary btn-sm">Apply</button>
+  </div>
+</form>
