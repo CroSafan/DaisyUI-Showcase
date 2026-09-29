@@ -2,12 +2,13 @@
 <%@ include file="../fragments/head.jspf" %>
 <%@ include file="../fragments/page-title.jspf" %>
 <%@ include file="../fragments/metrics.jspf" %>
+<spring:message code="ui.1125" var="msg_ui_1125"/>
 <div class="two-grid section-block">
   <section class="card surface-card">
     <div class="card-body">
-      <span class="section-kicker">REVENUE TREND</span>
-      <h2>12-month performance</h2>
-      <div class="chart" role="img" aria-label="Revenue generally rises across twelve months">
+      <span class="section-kicker"><spring:message code="ui.337"/></span>
+      <h2><spring:message code="ui.338"/></h2>
+      <div class="chart" role="img" aria-label="${msg_ui_1125}">
         <span style="--h:32%"></span>
         <span style="--h:38%"></span>
         <span style="--h:35%"></span>
@@ -21,25 +22,25 @@
         <span style="--h:79%"></span>
         <span style="--h:91%"></span>
       </div>
-      <div class="chart-legend"><span>OCT</span><span>JAN</span><span>APR</span><span>JUL</span><span>SEP</span></div>
+      <div class="chart-legend"><span><spring:message code="ui.679"/></span><span><spring:message code="ui.1161"/></span><span><spring:message code="ui.1162"/></span><span><spring:message code="ui.1163"/></span><span><spring:message code="ui.678"/></span></div>
     </div>
   </section>
   <section class="card surface-card">
     <div class="card-body">
-      <span class="section-kicker">ACTIVITY FEED</span>
-      <h2>Recent signals</h2>
+      <span class="section-kicker"><spring:message code="ui.339"/></span>
+      <h2><spring:message code="ui.340"/></h2>
       <ul class="activity-list">
         <li>
           <span class="activity-dot"></span>
-          <div><strong>Expansion opportunity created</strong><small>Meridian Group · 18 minutes ago</small></div>
+          <div><strong><spring:message code="ui.341"/></strong><small><spring:message code="ui.1164"/></small></div>
         </li>
         <li>
           <span class="activity-dot"></span>
-          <div><strong>Quarterly goal reached</strong><small>Central region · 2 hours ago</small></div>
+          <div><strong><spring:message code="ui.342"/></strong><small><spring:message code="ui.1165"/></small></div>
         </li>
         <li>
           <span class="activity-dot"></span>
-          <div><strong>Conversion rate improved</strong><small>Digital channel · Yesterday</small></div>
+          <div><strong><spring:message code="ui.343"/></strong><small><spring:message code="ui.1166"/></small></div>
         </li>
       </ul>
     </div>

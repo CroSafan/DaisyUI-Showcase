@@ -2,46 +2,49 @@
 <%@ include file="../fragments/head.jspf" %>
 <%@ include file="../fragments/page-title.jspf" %>
 <%@ include file="../fragments/metrics.jspf" %>
+<spring:message code="ui.1152" var="msg_ui_1152"/>
+<spring:message code="ui.1153" var="msg_ui_1153"/>
+<spring:message code="ui.1154" var="msg_ui_1154"/>
 <section class="section-block">
   <div class="section-head">
     <div>
-      <span class="section-kicker">SUBSCRIPTION PLANS</span>
-      <h2>Flexible billing</h2>
+      <span class="section-kicker"><spring:message code="ui.974"/></span>
+      <h2><spring:message code="ui.474"/></h2>
     </div>
-    <span class="badge badge-success">Monthly recurring revenue ↑</span>
+    <span class="badge badge-success"><spring:message code="ui.975"/></span>
   </div>
   <div class="three-grid">
     <article class="card feature-card">
       <div class="card-body">
-        <span class="badge badge-ghost">STARTER</span>
-        <h3>For a focused team</h3>
+        <span class="badge badge-ghost"><spring:message code="ui.467"/></span>
+        <h3><spring:message code="ui.976"/></h3>
         <strong class="metric-value">€29<small>/mo</small></strong>
-        <p>Up to 10 seats · Core reports · Email support</p>
-        <button class="btn btn-outline btn-sm" data-toast="Plan selected in demo">Manage plan</button>
+        <p><spring:message code="ui.977"/></p>
+        <button class="btn btn-outline btn-sm" data-toast="${msg_ui_1152}"><spring:message code="ui.471"/></button>
       </div>
     </article>
     <article class="card feature-card">
       <div class="card-body">
-        <span class="badge badge-primary">GROWTH</span>
-        <h3>For a scaling team</h3>
+        <span class="badge badge-primary"><spring:message code="ui.468"/></span>
+        <h3><spring:message code="ui.978"/></h3>
         <strong class="metric-value">€99<small>/mo</small></strong>
-        <p>Up to 100 seats · Advanced analytics · Integrations</p>
-        <button class="btn btn-primary btn-sm" data-toast="Upgrade action in demo">Upgrade account</button>
+        <p><spring:message code="ui.979"/></p>
+        <button class="btn btn-primary btn-sm" data-toast="${msg_ui_1153}"><spring:message code="ui.472"/></button>
       </div>
     </article>
     <article class="card feature-card">
       <div class="card-body">
-        <span class="badge badge-secondary">ENTERPRISE</span>
-        <h3>For a complex organization</h3>
-        <strong class="metric-value">Custom</strong>
-        <p>Unlimited seats · SSO · Governance · Dedicated support</p>
-        <button class="btn btn-outline btn-sm" data-toast="Account action in demo">View entitlements</button>
+        <span class="badge badge-secondary"><spring:message code="ui.469"/></span>
+        <h3><spring:message code="ui.980"/></h3>
+        <strong class="metric-value"><spring:message code="ui.981"/></strong>
+        <p><spring:message code="ui.982"/></p>
+        <button class="btn btn-outline btn-sm" data-toast="${msg_ui_1154}"><spring:message code="ui.473"/></button>
       </div>
     </article>
   </div>
 </section>
 <div class="alert alert-info section-block">
-  ⓘ Usage monitoring: four Growth accounts are approaching their monthly entitlement limits.
+  <spring:message code="ui.983"/>
 </div>
 <div class="content-grid section-block">
   <%@ include file="../fragments/record-table.jspf" %>

@@ -1,9 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div class="page-heading">
   <div>
-    <div class="eyebrow"><c:out value="${current.eyebrow}"/></div>
-    <h1><c:out value="${current.title}"/></h1>
-    <p><c:out value="${current.description}"/></p>
+    <div class="eyebrow"><spring:message code="${messageCodes[current.eyebrow]}" text="${current.eyebrow}" htmlEscape="true"/></div>
+    <h1><spring:message code="${messageCodes[current.title]}" text="${current.title}" htmlEscape="true"/></h1>
+    <p><spring:message code="${messageCodes[current.description]}" text="${current.description}" htmlEscape="true"/></p>
   </div>
-  <div class="heading-actions"><span class="badge badge-outline">Interactive demo</span></div>
+  <div class="heading-actions"><span class="badge badge-outline"><spring:message code="ui.046"/></span></div>
 </div>

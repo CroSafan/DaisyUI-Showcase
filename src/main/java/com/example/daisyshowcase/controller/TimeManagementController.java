@@ -6,6 +6,7 @@ import com.example.daisyshowcase.service.TimeManagementService;
 import com.example.daisyshowcase.service.TimeManagementService.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.context.MessageSource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +22,10 @@ import java.util.*;
 public class TimeManagementController {
     private final ShowcaseService showcase;
     private final TimeManagementService time;
-    public TimeManagementController(ShowcaseService showcase, TimeManagementService time) { this.showcase=showcase; this.time=time; }
+    private final MessageSource messages;
+    public TimeManagementController(ShowcaseService showcase, TimeManagementService time, MessageSource messages) {
+        this.showcase=showcase; this.time=time; this.messages=messages;
+    }
     @ModelAttribute("navigation") public List<ShowcasePage> navigation() { return showcase.pages(); }
 
     @GetMapping({"/time/overview","/time/access","/time/timesheet","/time/department","/time/schedules",
@@ -29,7 +33,7 @@ public class TimeManagementController {
     public String page(HttpServletRequest request, HttpSession session, Model model,
                        @RequestParam(required=false) String month, @RequestParam(required=false) String team,
                        @RequestParam(required=false) String week, @RequestParam(required=false) String severity,
-                       @RequestParam(required=false) String employee) {
+                       @RequestParam(required=false) String employee, Locale locale) {
         String path=request.getRequestURI().substring(request.getContextPath().length());
         String slug=path.substring(path.lastIndexOf('/')+1).split(";",2)[0];
         String pageSlug=slug.equals("approvals") ? "approvals-time" : slug;
@@ -58,7 +62,7 @@ public class TimeManagementController {
             }
             case "timesheet" -> {
                 Employee person=time.employees(selectedTeam).stream().filter(e->e.id().equals(employee)).findFirst()
-                    .orElse(time.employees(selectedTeam).getFirst());
+                    .orElse(time.employees(selectedTeam).get(0));
                 model.addAttribute("person",person);
                 model.addAttribute("clockings",time.timesheet(person,period));
                 Map<String,String> decisions=decisions(session);
@@ -73,7 +77,7 @@ public class TimeManagementController {
                 model.addAttribute("nextWeek",start.plusWeeks(1).toString());
                 model.addAttribute("shifts",time.shifts(selectedTeam,start));
                 model.addAttribute("weekDays",java.util.stream.IntStream.range(0,7).mapToObj(i->Map.of(
-                    "date",start.plusDays(i).toString(),"label",start.plusDays(i).format(DateTimeFormatter.ofPattern("EEE d MMM",Locale.ENGLISH)))).toList());
+                    "date",start.plusDays(i).toString(),"label",start.plusDays(i).format(DateTimeFormatter.ofPattern("EEE d MMM",locale)))).toList());
             }
             case "leave" -> {
                 List<LeaveRequest> requests=new ArrayList<>(time.leaveRequests());
@@ -146,7 +150,7 @@ public class TimeManagementController {
 
     @PostMapping("/time/leave/request")
     public String requestLeave(@RequestParam String type,@RequestParam String from,@RequestParam String to,@RequestParam String note,
-                               HttpSession session,RedirectAttributes flash) {
+                               HttpSession session,RedirectAttributes flash, Locale locale) {
         try {
             LocalDate first=LocalDate.parse(from),last=LocalDate.parse(to);
             if(last.isBefore(first) || last.isAfter(first.plusDays(30))) throw new IllegalArgumentException();
@@ -155,17 +159,21 @@ public class TimeManagementController {
                 throw new IllegalArgumentException();
             String id="LV-DEMO-"+(leaveRequests(session).size()+1);
             leaveRequests(session).add(0,new LeaveRequest(id,"Mia Kovač","Operations",type,from,to,(int)days,"Pending","warning","Noah Petrović",note.strip()));
-            flash.addFlashAttribute("notice","Leave request "+id+" submitted for review in this demo session.");
+            flash.addFlashAttribute("notice",messages.getMessage("time.leave.submitted",new Object[]{id},locale));
         } catch(RuntimeException ex) { flash.addFlashAttribute("error","Enter a valid leave range of 1–20 weekdays and select a leave type."); }
         return "redirect:/time/leave";
     }
 
     @PostMapping("/time/approvals/decision")
-    public String decide(@RequestParam String id,@RequestParam String decision,HttpSession session,RedirectAttributes flash) {
+    public String decide(@RequestParam String id,@RequestParam String decision,HttpSession session,RedirectAttributes flash, Locale locale) {
         boolean known=time.approvals().stream().anyMatch(a->a.id().equals(id)) || leaveRequests(session).stream().anyMatch(r->r.id().equals(id))
             || corrections(session).stream().anyMatch(c->c.id().equals(id));
         if(!known || !List.of("Approved","Rejected").contains(decision)) flash.addFlashAttribute("error","Invalid decision.");
-        else { decisions(session).put(id,decision); flash.addFlashAttribute("notice",id+" marked "+decision.toLowerCase(Locale.ROOT)+" in this demo session."); }
+        else {
+            decisions(session).put(id,decision);
+            String label=messages.getMessage(decision.equals("Approved") ? "ui.077" : "ui.078",null,locale);
+            flash.addFlashAttribute("notice",messages.getMessage("time.decision.marked",new Object[]{id,label},locale));
+        }
         return "redirect:/time/approvals";
     }
 

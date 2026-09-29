@@ -8,9 +8,10 @@ import java.util.*;
 public class ShowcaseService {
     private static final List<ShowcasePage> PAGES = List.of(
         page("components","Component gallery","Foundations","The UI toolkit","Everyday interface building blocks, shown in useful states.","◈"),
-        page("themes","Theme laboratory","Foundations","Color systems","One interface, eight distinct visual identities.","◐"),
+        page("themes","Theme laboratory","Foundations","Color systems","One interface, nine distinct visual identities.","◐"),
         page("responsive","Responsive laboratory","Foundations","Every viewport","A single composition that adapts from phone to wide desktop.","▦"),
         page("forms","Forms & validation","Foundations","Data entry","Accessible input patterns with Spring MVC validation.","✎"),
+        page("workspace-form","Application form workspace","Foundations","A focused workspace","A responsive, full-width form with its own navigation and diverse input controls.","▧"),
         page("data","Data management","Foundations","Work with records","Search, filter, select, and paginate a realistic queue.","▤"),
         page("analytics","Analytics dashboard","Business applications","Measure what matters","Executive metrics, goals, and performance signals.","▥"),
         page("crm","CRM workspace","Business applications","Customer intelligence","A relationship-focused sales and account workspace.","◎"),

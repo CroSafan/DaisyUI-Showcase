@@ -2,40 +2,43 @@
 <%@ include file="../fragments/head.jspf" %>
 <%@ include file="../fragments/page-title.jspf" %>
 <%@ include file="../fragments/time-nav.jspf" %>
+<spring:message code="ui.1158" var="msg_ui_1158"/>
+<spring:message code="ui.1159" var="msg_ui_1159"/>
+<spring:message code="ui.149" var="msg_ui_149"/>
 <div class="two-grid">
   <section class="time-panel">
     <div class="time-panel-head">
       <div>
-        <span class="section-kicker">PERSONAL ENTITLEMENT</span>
-        <h2>Mia Kovač · 2026 balance</h2>
+        <span class="section-kicker"><spring:message code="ui.138"/></span>
+        <h2><spring:message code="ui.1060"/></h2>
       </div>
-      <span class="badge badge-success">Active</span>
+      <span class="badge badge-success"><spring:message code="ui.674"/></span>
     </div>
     <div class="time-panel-body">
       <div class="time-balance">
-        <div><small>Annual allowance</small><strong>25 days</strong></div>
-        <div><small>Used + approved</small><strong>8 days</strong></div>
-        <div><small>Available</small><strong>17 days</strong></div>
+        <div><small><spring:message code="ui.140"/></small><strong><spring:message code="ui.1061"/></strong></div>
+        <div><small><spring:message code="ui.141"/></small><strong><spring:message code="ui.1062"/></strong></div>
+        <div><small><spring:message code="ui.142"/></small><strong><spring:message code="ui.1063"/></strong></div>
       </div>
-      <p class="time-small">Pending requests are shown separately and do not reduce the approved balance until accepted.</p>
-      <progress class="progress progress-primary" value="8" max="25" aria-label="8 of 25 annual leave days used"></progress>
+      <p class="time-small"><spring:message code="ui.143"/></p>
+      <progress class="progress progress-primary" value="8" max="25" aria-label="${msg_ui_1158}"></progress>
     </div>
   </section>
   <section class="time-panel">
     <div class="time-panel-head">
       <div>
-        <span class="section-kicker">COVERAGE FORECAST</span>
-        <h2>Team availability</h2>
+        <span class="section-kicker"><spring:message code="ui.144"/></span>
+        <h2><spring:message code="ui.145"/></h2>
       </div>
     </div>
     <div class="time-panel-body">
-      <div class="time-status-line"><span>Week of 12 October</span><strong>5 of 6 available</strong></div>
+      <div class="time-status-line"><span><spring:message code="ui.1064"/></span><strong><spring:message code="ui.1190"/></strong></div>
       <div class="time-status-line" style="margin-top:.5rem">
-        <span>Week of 26 October</span>
-        <strong>5 of 6 available</strong>
+        <span><spring:message code="ui.1065"/></span>
+        <strong><spring:message code="ui.1190"/></strong>
       </div>
       <div class="alert alert-warning" style="margin-top:.8rem">
-        ⚠ One October request overlaps a regional holiday. Confirm the relevant calendar before approval.
+        <spring:message code="ui.1066"/>
       </div>
     </div>
   </section>
@@ -44,35 +47,35 @@
   <section class="time-panel">
     <div class="time-panel-head">
       <div>
-        <span class="section-kicker">SELF-SERVICE REQUEST</span>
-        <h2>Plan time away</h2>
+        <span class="section-kicker"><spring:message code="ui.146"/></span>
+        <h2><spring:message code="ui.1067"/></h2>
       </div>
-      <span class="badge badge-outline">Session demo</span>
+      <span class="badge badge-outline"><spring:message code="ui.147"/></span>
     </div>
     <div class="time-panel-body">
       <form class="time-form" method="post" action="${pageContext.request.contextPath}/time/leave/request">
         <label>
-          Leave type
+          <spring:message code="ui.148"/>
           <select class="select select-bordered" name="type" required>
-            <option value="Annual leave">Annual leave</option>
-            <option value="Personal day">Personal day</option>
-            <option value="Unpaid leave">Unpaid leave</option>
+            <option value="Annual leave"><spring:message code="ui.073"/></option>
+            <option value="Personal day"><spring:message code="ui.074"/></option>
+            <option value="Unpaid leave"><spring:message code="ui.075"/></option>
           </select>
         </label>
         <label>
-          Cover colleague
-          <input class="input input-bordered" value="Noah Petrović" readonly aria-label="Cover colleague">
+          <spring:message code="ui.149"/>
+          <input class="input input-bordered" value="Noah Petrović" readonly aria-label="${msg_ui_149}">
         </label>
-        <label>First day<input class="input input-bordered" type="date" name="from" required></label>
-        <label>Last day<input class="input input-bordered" type="date" name="to" required></label>
+        <label><spring:message code="ui.150"/><input class="input input-bordered" type="date" name="from" required></label>
+        <label><spring:message code="ui.151"/><input class="input input-bordered" type="date" name="to" required></label>
         <label class="full">
-          Reason or handover note
-          <textarea class="textarea textarea-bordered" name="note" maxlength="300" rows="3" placeholder="Optional context for your manager">
+          <spring:message code="ui.152"/>
+          <textarea class="textarea textarea-bordered" name="note" maxlength="300" rows="3" placeholder="${msg_ui_1159}">
           </textarea>
         </label>
         <div class="form-actions">
-          <button class="btn btn-primary btn-sm">Submit leave request</button>
-          <small>1–20 weekdays per request.</small>
+          <button class="btn btn-primary btn-sm"><spring:message code="ui.153"/></button>
+          <small><spring:message code="ui.1068"/></small>
         </div>
       </form>
     </div>
@@ -80,8 +83,8 @@
   <section class="time-panel">
     <div class="time-panel-head">
       <div>
-        <span class="section-kicker">REQUEST PIPELINE</span>
-        <h2>From request to calendar</h2>
+        <span class="section-kicker"><spring:message code="ui.154"/></span>
+        <h2><spring:message code="ui.155"/></h2>
       </div>
     </div>
     <div class="time-panel-body">
@@ -89,54 +92,54 @@
         <li>
           <span class="marker">1</span>
           <span>
-            <strong>Check balance and coverage</strong>
-            <small>Review planned team absences and regional holidays.</small>
+            <strong><spring:message code="ui.156"/></strong>
+            <small><spring:message code="ui.157"/></small>
           </span>
         </li>
         <li>
           <span class="marker">2</span>
-          <span><strong>Submit with handover</strong><small>Your request appears below and in the manager queue.</small></span>
+          <span><strong><spring:message code="ui.158"/></strong><small><spring:message code="ui.159"/></small></span>
         </li>
         <li>
           <span class="marker">3</span>
-          <span><strong>Manager decision</strong><small>Approved days flow to the department calendar.</small></span>
+          <span><strong><spring:message code="ui.160"/></strong><small><spring:message code="ui.161"/></small></span>
         </li>
       </ul>
-      <a class="btn btn-ghost btn-sm" href="${pageContext.request.contextPath}/time/holidays">View holiday calendar ↗</a>
+      <a class="btn btn-ghost btn-sm" href="${pageContext.request.contextPath}/time/holidays"><spring:message code="ui.1069"/></a>
     </div>
   </section>
 </div>
 <section class="time-panel time-section">
   <div class="time-panel-head">
     <div>
-      <span class="section-kicker">LEAVE REGISTER</span>
-      <h2>Requests across teams</h2>
+      <span class="section-kicker"><spring:message code="ui.163"/></span>
+      <h2><spring:message code="ui.164"/></h2>
     </div>
-    <span class="badge badge-info badge-soft">${leaveRequests.size()} records</span>
+    <span class="badge badge-info badge-soft"><spring:message code="ui.1200" arguments="${leaveRequests.size()}"/></span>
   </div>
   <div class="table-wrap">
     <table class="table table-zebra">
       <thead>
         <tr>
-          <th scope="col">Request</th>
-          <th scope="col">Employee</th>
-          <th scope="col">Type</th>
-          <th scope="col">Dates</th>
-          <th scope="col">Days</th>
-          <th scope="col">Cover</th>
-          <th scope="col">Status</th>
+          <th scope="col"><spring:message code="ui.1189"/></th>
+          <th scope="col"><spring:message code="ui.088"/></th>
+          <th scope="col"><spring:message code="ui.165"/></th>
+          <th scope="col"><spring:message code="ui.166"/></th>
+          <th scope="col"><spring:message code="ui.167"/></th>
+          <th scope="col"><spring:message code="ui.168"/></th>
+          <th scope="col"><spring:message code="ui.092"/></th>
         </tr>
       </thead>
       <tbody>
         <c:forEach items="${leaveRequests}" var="item">
           <tr>
-            <td class="mono"><c:out value="${item.id}"/></td>
-            <td><strong><c:out value="${item.employee}"/></strong><small><c:out value="${item.team}"/></small></td>
-            <td><c:out value="${item.type}"/></td>
-            <td><c:out value="${item.from}"/> → <c:out value="${item.to}"/></td>
+            <td class="mono"><spring:message code="${messageCodes[item.id]}" text="${item.id}" htmlEscape="true"/></td>
+            <td><strong><spring:message code="${messageCodes[item.employee]}" text="${item.employee}" htmlEscape="true"/></strong><small><spring:message code="${messageCodes[item.team]}" text="${item.team}" htmlEscape="true"/></small></td>
+            <td><spring:message code="${messageCodes[item.type]}" text="${item.type}" htmlEscape="true"/></td>
+            <td><spring:message code="${messageCodes[item.from]}" text="${item.from}" htmlEscape="true"/> → <spring:message code="${messageCodes[item.to]}" text="${item.to}" htmlEscape="true"/></td>
             <td>${item.days}</td>
-            <td><c:out value="${item.cover}"/></td>
-            <td><span class="badge badge-${item.tone} badge-soft"><c:out value="${item.status}"/></span></td>
+            <td><spring:message code="${messageCodes[item.cover]}" text="${item.cover}" htmlEscape="true"/></td>
+            <td><span class="badge badge-${item.tone} badge-soft"><spring:message code="${messageCodes[item.status]}" text="${item.status}" htmlEscape="true"/></span></td>
           </tr>
         </c:forEach>
       </tbody>

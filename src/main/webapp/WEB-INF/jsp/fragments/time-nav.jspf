@@ -1,25 +1,26 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<spring:message code="ui.631" var="msg_ui_631"/>
 <div class="time-context">
   <div>
     <span class="time-context-icon" aria-hidden="true">◷</span>
     <span>
-      <strong>ATLAS / PEOPLE OPERATIONS</strong>
-      <small>Time & attendance workspace · Fictional demonstration data</small>
+      <strong><spring:message code="ui.686"/></strong>
+      <small><spring:message code="ui.044"/></small>
     </span>
   </div>
-  <span class="badge badge-outline">September 2026 scenario</span>
+  <span class="badge badge-outline"><spring:message code="ui.045"/></span>
 </div>
-<nav class="time-subnav" aria-label="Time management pages">
+<nav class="time-subnav" aria-label="${msg_ui_631}">
   <c:forEach items="${timeNavigation}" var="item" varStatus="loop">
     <a class="time-subnav-link ${current.slug eq item.slug ? 'active' : ''}" href="${pageContext.request.contextPath}${item.path}" ${current.slug eq item.slug ? 'aria-current="page"' : ''}>
       <span class="time-nav-number"><c:if test="${loop.count lt 10}">0</c:if>${loop.count}</span>
-      <c:out value="${item.title}"/>
+      <spring:message code="${messageCodes[item.title]}" text="${item.title}" htmlEscape="true"/>
     </a>
   </c:forEach>
 </nav>
 <c:if test="${not empty notice}">
-  <div class="alert alert-success time-message" role="status">✓ <c:out value="${notice}"/></div>
+  <div class="alert alert-success time-message" role="status">✓ <spring:message code="${messageCodes[notice]}" text="${notice}" htmlEscape="true"/></div>
 </c:if>
 <c:if test="${not empty error}">
-  <div class="alert alert-error time-message" role="alert">⚠ <c:out value="${error}"/></div>
+  <div class="alert alert-error time-message" role="alert">⚠ <spring:message code="${messageCodes[error]}" text="${error}" htmlEscape="true"/></div>
 </c:if>

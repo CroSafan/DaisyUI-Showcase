@@ -1,106 +1,107 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="../fragments/head.jspf" %>
+<spring:message code="ui.720" var="msg_ui_720"/>
 <div class="enterprise-workspace">
   <%@ include file="../fragments/page-title.jspf" %>
   <div class="enterprise-context">
-    <span><strong>ERP / OPERATIONS</strong> · Zagreb plant · September 2026</span>
-    <span class="badge badge-outline">Enterprise theme</span>
+    <span><strong><spring:message code="ui.711"/></strong> <spring:message code="ui.1174"/></span>
+    <span class="badge badge-outline"><spring:message code="ui.795"/></span>
   </div>
   <%@ include file="../fragments/metrics.jspf" %>
   <div class="enterprise-columns">
     <section class="enterprise-panel enterprise-main">
       <div class="enterprise-panel-head">
         <div>
-          <span class="section-kicker">PROCUREMENT</span>
-          <h2>Purchase order queue</h2>
+          <span class="section-kicker"><spring:message code="ui.717"/></span>
+          <h2><spring:message code="ui.718"/></h2>
         </div>
-        <span class="enterprise-muted">4 records · 3 require action</span>
+        <span class="enterprise-muted"><spring:message code="ui.719"/></span>
       </div>
       <div class="enterprise-toolbar">
-        <label class="sr-only" for="erp-search">Search orders</label>
-        <input id="erp-search" class="input input-bordered input-sm" placeholder="Search orders" data-enterprise-search="erp-orders">
-        <label class="sr-only" for="erp-status">Filter status</label>
+        <label class="sr-only" for="erp-search"><spring:message code="ui.720"/></label>
+        <input id="erp-search" class="input input-bordered input-sm" placeholder="${msg_ui_720}" data-enterprise-search="erp-orders">
+        <label class="sr-only" for="erp-status"><spring:message code="ui.721"/></label>
         <select id="erp-status" class="select select-bordered select-sm" data-enterprise-status="erp-orders">
-          <option value="">All statuses</option>
-          <option value="Awaiting approval">Awaiting approval</option>
-          <option value="In transit">In transit</option>
-          <option value="Scheduled">Scheduled</option>
-          <option value="Attention">Attention</option>
+          <option value=""><spring:message code="ui.083"/></option>
+          <option value="Awaiting approval"><spring:message code="ui.816"/></option>
+          <option value="In transit"><spring:message code="ui.817"/></option>
+          <option value="Scheduled"><spring:message code="ui.413"/></option>
+          <option value="Attention"><spring:message code="ui.818"/></option>
         </select>
-        <span class="enterprise-muted" data-enterprise-count="erp-orders">4 shown</span>
+        <span class="enterprise-muted" data-enterprise-count="erp-orders"><spring:message code="ui.723"/></span>
       </div>
       <div class="table-wrap">
         <table class="table enterprise-table">
           <thead>
             <tr>
-              <th>Reference / description</th>
-              <th>Owner</th>
-              <th>Status</th>
-              <th class="enterprise-number">Amount / quantity</th>
-              <th><span class="sr-only">Action</span></th>
+              <th><spring:message code="ui.724"/></th>
+              <th><spring:message code="ui.361"/></th>
+              <th><spring:message code="ui.092"/></th>
+              <th class="enterprise-number"><spring:message code="ui.725"/></th>
+              <th><span class="sr-only"><spring:message code="ui.264"/></span></th>
             </tr>
           </thead>
           <tbody data-enterprise-table="erp-orders">
             <c:forEach items="${demo.records}" var="record">
               <tr data-enterprise-row data-status="${fn:escapeXml(record.status)}">
-                <td><strong><c:out value="${record.name}"/></strong><small><c:out value="${record.detail}"/></small></td>
-                <td><c:out value="${record.owner}"/></td>
-                <td><span class="badge badge-${record.tone} badge-soft"><c:out value="${record.status}"/></span></td>
-                <td class="mono enterprise-number"><c:out value="${record.value}"/></td>
-                <td><button class="btn btn-ghost btn-xs" type="button" data-detail="${fn:escapeXml(record.name)}">View</button></td>
+                <td><strong><spring:message code="${messageCodes[record.name]}" text="${record.name}" htmlEscape="true"/></strong><small><spring:message code="${messageCodes[record.detail]}" text="${record.detail}" htmlEscape="true"/></small></td>
+                <td><spring:message code="${messageCodes[record.owner]}" text="${record.owner}" htmlEscape="true"/></td>
+                <td><span class="badge badge-${record.tone} badge-soft"><spring:message code="${messageCodes[record.status]}" text="${record.status}" htmlEscape="true"/></span></td>
+                <td class="mono enterprise-number"><spring:message code="${messageCodes[record.value]}" text="${record.value}" htmlEscape="true"/></td>
+                <td><button class="btn btn-ghost btn-xs" type="button" data-detail="${fn:escapeXml(record.name)}"><spring:message code="ui.286"/></button></td>
               </tr>
             </c:forEach>
           </tbody>
         </table>
       </div>
-      <p class="enterprise-empty" data-enterprise-empty="erp-orders" hidden>No matching records.</p>
+      <p class="enterprise-empty" data-enterprise-empty="erp-orders" hidden><spring:message code="ui.727"/></p>
     </section>
     <aside class="enterprise-stack">
       <section class="enterprise-panel">
         <div class="enterprise-panel-head">
           <div>
-            <span class="section-kicker">EXCEPTIONS</span>
-            <h2>Needs attention</h2>
+            <span class="section-kicker"><spring:message code="ui.097"/></span>
+            <h2><spring:message code="ui.729"/></h2>
           </div>
-          <span class="badge badge-warning badge-soft">4 open</span>
+          <span class="badge badge-warning badge-soft"><spring:message code="ui.730"/></span>
         </div>
         <div class="enterprise-list">
           <div>
-            <span class="enterprise-list-title">Cycle count variance <small>INV-7624</small></span>
-            <strong>18 items</strong>
+            <span class="enterprise-list-title"><spring:message code="ui.731"/> <small>INV-7624</small></span>
+            <strong><spring:message code="ui.732"/></strong>
           </div>
-          <div><span class="enterprise-list-title">Spend threshold <small>PO-10482</small></span><strong>€48,200</strong></div>
+          <div><span class="enterprise-list-title"><spring:message code="ui.733"/> <small>PO-10482</small></span><strong>€48,200</strong></div>
           <div>
-            <span class="enterprise-list-title">Late supplier confirmation <small>PO-10476</small></span>
-            <strong>2 days</strong>
+            <span class="enterprise-list-title"><spring:message code="ui.734"/> <small>PO-10476</small></span>
+            <strong><spring:message code="ui.896"/></strong>
           </div>
           <div>
-            <span class="enterprise-list-title">Production material gap <small>Line B</small></span>
-            <strong>120 units</strong>
+            <span class="enterprise-list-title"><spring:message code="ui.735"/> <small><spring:message code="ui.830"/></small></span>
+            <strong><spring:message code="ui.736"/></strong>
           </div>
         </div>
       </section>
       <section class="enterprise-panel">
         <div class="enterprise-panel-head">
           <div>
-            <span class="section-kicker">CAPACITY</span>
-            <h2>Today by function</h2>
+            <span class="section-kicker"><spring:message code="ui.446"/></span>
+            <h2><spring:message code="ui.738"/></h2>
           </div>
         </div>
         <div class="enterprise-capacity">
           <div>
-            <span>Purchasing</span>
-            <strong>12 requests</strong>
+            <span><spring:message code="ui.739"/></span>
+            <strong><spring:message code="ui.740"/></strong>
             <progress class="progress progress-primary" value="62" max="100"></progress>
           </div>
           <div>
-            <span>Warehouse availability</span>
+            <span><spring:message code="ui.741"/></span>
             <strong>98.2%</strong>
             <progress class="progress progress-success" value="98" max="100"></progress>
           </div>
           <div>
-            <span>Production schedule</span>
-            <strong>4,820 units</strong>
+            <span><spring:message code="ui.742"/></span>
+            <strong><spring:message code="ui.897"/></strong>
             <progress class="progress progress-info" value="74" max="100"></progress>
           </div>
         </div>
@@ -110,47 +111,47 @@
   <section class="enterprise-panel enterprise-bottom">
     <div class="enterprise-panel-head">
       <div>
-        <span class="section-kicker">FULFILLMENT</span>
-        <h2>Warehouse movement</h2>
+        <span class="section-kicker"><spring:message code="ui.743"/></span>
+        <h2><spring:message code="ui.426"/></h2>
       </div>
-      <span class="enterprise-muted">Updated 09:42</span>
+      <span class="enterprise-muted"><spring:message code="ui.745"/></span>
     </div>
     <div class="table-wrap">
       <table class="table enterprise-table">
         <thead>
           <tr>
-            <th>Site</th>
-            <th>On hand</th>
-            <th>Allocated</th>
-            <th>Available</th>
-            <th>Service level</th>
-            <th>Next action</th>
+            <th><spring:message code="ui.746"/></th>
+            <th><spring:message code="ui.747"/></th>
+            <th><spring:message code="ui.748"/></th>
+            <th><spring:message code="ui.142"/></th>
+            <th><spring:message code="ui.750"/></th>
+            <th><spring:message code="ui.751"/></th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Central · Zagreb</strong></td>
+            <td><strong><spring:message code="ui.1175"/></strong></td>
             <td class="mono">18,420</td>
             <td class="mono">4,810</td>
             <td class="mono">13,610</td>
             <td><span class="badge badge-success badge-soft">98.7%</span></td>
-            <td>Cycle count · 14:00</td>
+            <td><spring:message code="ui.1176"/></td>
           </tr>
           <tr>
-            <td><strong>West · Rijeka</strong></td>
+            <td><strong><spring:message code="ui.1177"/></strong></td>
             <td class="mono">8,960</td>
             <td class="mono">2,150</td>
             <td class="mono">6,810</td>
             <td><span class="badge badge-success badge-soft">97.9%</span></td>
-            <td>Transfer receipt · 11:30</td>
+            <td><spring:message code="ui.1178"/></td>
           </tr>
           <tr>
-            <td><strong>East · Osijek</strong></td>
+            <td><strong><spring:message code="ui.1179"/></strong></td>
             <td class="mono">6,280</td>
             <td class="mono">1,990</td>
             <td class="mono">4,290</td>
             <td><span class="badge badge-warning badge-soft">94.1%</span></td>
-            <td>Replenishment · 16:00</td>
+            <td><spring:message code="ui.1180"/></td>
           </tr>
         </tbody>
       </table>

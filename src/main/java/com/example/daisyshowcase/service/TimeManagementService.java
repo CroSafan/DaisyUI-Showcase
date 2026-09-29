@@ -1,7 +1,9 @@
 package com.example.daisyshowcase.service;
 
 import com.example.daisyshowcase.model.Metric;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -10,9 +12,15 @@ import java.util.*;
 
 @Service
 public class TimeManagementService {
+    private final MessageSource messages;
+
+    public TimeManagementService(MessageSource messages) {
+        this.messages = messages;
+    }
+
     public static final YearMonth DEFAULT_MONTH = YearMonth.of(2026, 9);
-    private static final DateTimeFormatter DAY_FORMAT = DateTimeFormatter.ofPattern("EEE, dd MMM", Locale.ENGLISH);
-    private static final DateTimeFormatter MONTH_FORMAT = DateTimeFormatter.ofPattern("MMMM yyyy", Locale.ENGLISH);
+    private static final DateTimeFormatter DAY_FORMAT = DateTimeFormatter.ofPattern("EEE, dd MMM");
+    private static final DateTimeFormatter MONTH_FORMAT = DateTimeFormatter.ofPattern("MMMM yyyy");
     private static final List<Employee> EMPLOYEES = List.of(
         new Employee("E-1042","Mia Kovač","Operations","Operations lead","MK","corporate",40),
         new Employee("E-1048","Noah Petrović","Operations","Service coordinator","NP","info",40),
@@ -37,16 +45,16 @@ public class TimeManagementService {
         try { YearMonth value = YearMonth.parse(raw); return value.getYear() >= 2025 && value.getYear() <= 2028 ? value : DEFAULT_MONTH; }
         catch (RuntimeException ignored) { return DEFAULT_MONTH; }
     }
-    public String monthLabel(YearMonth month) { return month.format(MONTH_FORMAT); }
+    public String monthLabel(YearMonth month) { return month.format(MONTH_FORMAT.withLocale(LocaleContextHolder.getLocale())); }
     public List<Employee> employees() { return EMPLOYEES; }
     public List<Employee> employees(String team) { return EMPLOYEES.stream().filter(e->e.team().equals(team)).toList(); }
-    public Employee employee(String id) { return EMPLOYEES.stream().filter(e->e.id().equals(id)).findFirst().orElse(EMPLOYEES.getFirst()); }
+    public Employee employee(String id) { return EMPLOYEES.stream().filter(e->e.id().equals(id)).findFirst().orElse(EMPLOYEES.get(0)); }
 
     public MonthGrid grid(String team, YearMonth month) {
         List<DayHeader> days = new ArrayList<>();
         for (int d=1; d<=month.lengthOfMonth(); d++) {
             LocalDate date=month.atDay(d);
-            days.add(new DayHeader(date.toString(),String.valueOf(d),date.getDayOfWeek().getDisplayName(TextStyle.SHORT,Locale.ENGLISH),
+            days.add(new DayHeader(date.toString(),String.valueOf(d),date.getDayOfWeek().getDisplayName(TextStyle.SHORT,LocaleContextHolder.getLocale()),
                 date.getDayOfWeek().getValue() >= 6, isCompanyHoliday(date)));
         }
         List<MonthRow> rows = new ArrayList<>();
@@ -108,8 +116,9 @@ public class TimeManagementService {
     public List<Metric> metrics(MonthGrid grid) {
         int scheduled=grid.workdays()*grid.rows().size();
         int worked=grid.rows().stream().mapToInt(MonthRow::workedDays).sum();
-        return List.of(new Metric("Hours recorded",String.format(Locale.ROOT,"%.1f h",grid.totalHours()),"Across "+grid.rows().size()+" people","primary"),
-            new Metric("Attendance",scheduled==0?"0%":String.format(Locale.ROOT,"%.0f%%",100.0*worked/scheduled),worked+" of "+scheduled+" person-days","success"),
+        Locale locale = LocaleContextHolder.getLocale();
+        return List.of(new Metric("Hours recorded",String.format(locale,"%.1f h",grid.totalHours()),messages.getMessage("time.metric.across",new Object[]{grid.rows().size()},locale),"primary"),
+            new Metric("Attendance",scheduled==0?"0%":String.format(locale,"%.0f%%",100.0*worked/scheduled),messages.getMessage("time.metric.personDays",new Object[]{worked,scheduled},locale),"success"),
             new Metric("Leave days",String.valueOf(grid.totalLeave()),"Approved in month","info"),
             new Metric("Exceptions",String.valueOf(grid.totalExceptions()),"Require review","warning"));
     }
@@ -135,10 +144,11 @@ public class TimeManagementService {
         List<Employee> staff=employees(team); List<Shift> shifts=new ArrayList<>();
         for(int d=0;d<7;d++) {
             LocalDate date=weekStart.plusDays(d);
-            if(d>=5) { shifts.add(new Shift(date.toString(),date.format(DAY_FORMAT),"On-call rotation",staff.get(d%staff.size()).name(),"10:00","16:00","Standby","warning")); continue; }
-            shifts.add(new Shift(date.toString(),date.format(DAY_FORMAT),"Early coverage",staff.get(d%staff.size()).name(),"07:00","15:00","Confirmed","success"));
-            shifts.add(new Shift(date.toString(),date.format(DAY_FORMAT),"Core coverage",staff.get((d+2)%staff.size()).name(),"09:00","17:00","Confirmed","success"));
-            shifts.add(new Shift(date.toString(),date.format(DAY_FORMAT),"Late coverage",staff.get((d+4)%staff.size()).name(),"12:00","20:00",d==3?"Open slot":"Confirmed",d==3?"error":"success"));
+            DateTimeFormatter dayFormat = DAY_FORMAT.withLocale(LocaleContextHolder.getLocale());
+            if(d>=5) { shifts.add(new Shift(date.toString(),date.format(dayFormat),"On-call rotation",staff.get(d%staff.size()).name(),"10:00","16:00","Standby","warning")); continue; }
+            shifts.add(new Shift(date.toString(),date.format(dayFormat),"Early coverage",staff.get(d%staff.size()).name(),"07:00","15:00","Confirmed","success"));
+            shifts.add(new Shift(date.toString(),date.format(dayFormat),"Core coverage",staff.get((d+2)%staff.size()).name(),"09:00","17:00","Confirmed","success"));
+            shifts.add(new Shift(date.toString(),date.format(dayFormat),"Late coverage",staff.get((d+4)%staff.size()).name(),"12:00","20:00",d==3?"Open slot":"Confirmed",d==3?"error":"success"));
         }
         return List.copyOf(shifts);
     }

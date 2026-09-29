@@ -25,7 +25,7 @@ public class ShowcaseController {
         return "index";
     }
 
-    @GetMapping({"/showcase/components","/showcase/themes","/showcase/responsive","/showcase/forms",
+    @GetMapping({"/showcase/components","/showcase/themes","/showcase/responsive","/showcase/forms","/showcase/workspace-form",
         "/showcase/data","/showcase/analytics","/showcase/crm","/showcase/erp","/showcase/finance",
         "/showcase/hr","/showcase/projects","/showcase/itsm","/showcase/cloud","/showcase/security",
         "/showcase/ecommerce","/showcase/logistics","/showcase/healthcare","/showcase/saas",

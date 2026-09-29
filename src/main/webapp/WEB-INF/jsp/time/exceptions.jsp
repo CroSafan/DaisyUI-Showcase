@@ -3,46 +3,46 @@
 <%@ include file="../fragments/page-title.jspf" %>
 <%@ include file="../fragments/time-nav.jspf" %>
 <div class="alert alert-warning">
-  ⚠ Exception worklist includes sample missing punches, lateness, overtime and an unplanned absence. Severity is always named in text.
+  <spring:message code="ui.1031"/>
 </div>
 <section class="time-panel time-section">
   <div class="time-panel-head">
     <div>
-      <span class="section-kicker">INVESTIGATION QUEUE</span>
-      <h2>Attendance anomalies</h2>
+      <span class="section-kicker"><spring:message code="ui.258"/></span>
+      <h2><spring:message code="ui.1032"/></h2>
     </div>
-    <span class="badge badge-error badge-soft">${exceptions.size()} visible</span>
+    <span class="badge badge-error badge-soft"><spring:message code="ui.1199" arguments="${exceptions.size()}"/></span>
   </div>
   <form class="toolbar" method="get" action="${pageContext.request.contextPath}/time/exceptions">
-    <label class="sr-only" for="exception-team">Team</label>
+    <label class="sr-only" for="exception-team"><spring:message code="ui.089"/></label>
     <select id="exception-team" class="select select-bordered select-sm" name="team">
-      <option value="" ${empty exceptionTeam ? 'selected' : ''}>All teams</option>
+      <option value="" ${empty exceptionTeam ? 'selected' : ''}><spring:message code="ui.081"/></option>
       <c:forEach items="${teams}" var="option">
         <option value="${option}" ${exceptionTeam eq option ? 'selected' : ''}>${option}</option>
       </c:forEach>
     </select>
-    <label class="sr-only" for="exception-severity">Severity</label>
+    <label class="sr-only" for="exception-severity"><spring:message code="ui.260"/></label>
     <select id="exception-severity" class="select select-bordered select-sm" name="severity">
-      <option value="all" ${severity eq 'all' ? 'selected' : ''}>All severities</option>
-      <option value="Critical" ${severity eq 'Critical' ? 'selected' : ''}>Critical</option>
-      <option value="High" ${severity eq 'High' ? 'selected' : ''}>High</option>
-      <option value="Medium" ${severity eq 'Medium' ? 'selected' : ''}>Medium</option>
-      <option value="Low" ${severity eq 'Low' ? 'selected' : ''}>Low</option>
+      <option value="all" ${severity eq 'all' ? 'selected' : ''}><spring:message code="ui.082"/></option>
+      <option value="Critical" ${severity eq 'Critical' ? 'selected' : ''}><spring:message code="ui.670"/></option>
+      <option value="High" ${severity eq 'High' ? 'selected' : ''}><spring:message code="ui.671"/></option>
+      <option value="Medium" ${severity eq 'Medium' ? 'selected' : ''}><spring:message code="ui.672"/></option>
+      <option value="Low" ${severity eq 'Low' ? 'selected' : ''}><spring:message code="ui.673"/></option>
     </select>
-    <button class="btn btn-primary btn-sm">Filter</button>
-    <a class="btn btn-ghost btn-sm" href="${pageContext.request.contextPath}/time/exceptions">Reset</a>
+    <button class="btn btn-primary btn-sm"><spring:message code="ui.261"/></button>
+    <a class="btn btn-ghost btn-sm" href="${pageContext.request.contextPath}/time/exceptions"><spring:message code="ui.080"/></a>
   </form>
   <div class="table-wrap">
     <table class="table table-zebra">
       <thead>
         <tr>
-          <th scope="col">Case</th>
-          <th scope="col">Employee</th>
-          <th scope="col">Date</th>
-          <th scope="col">Signal</th>
-          <th scope="col">Severity</th>
-          <th scope="col">Status</th>
-          <th scope="col">Action</th>
+          <th scope="col"><spring:message code="ui.262"/></th>
+          <th scope="col"><spring:message code="ui.088"/></th>
+          <th scope="col"><spring:message code="ui.090"/></th>
+          <th scope="col"><spring:message code="ui.263"/></th>
+          <th scope="col"><spring:message code="ui.260"/></th>
+          <th scope="col"><spring:message code="ui.092"/></th>
+          <th scope="col"><spring:message code="ui.264"/></th>
         </tr>
       </thead>
       <tbody>
@@ -50,22 +50,22 @@
           <c:when test="${empty exceptions}">
             <tr>
               <td colspan="7">
-                <div class="alert alert-info">No exceptions match these filters.</div>
+                <div class="alert alert-info"><spring:message code="ui.265"/></div>
               </td>
             </tr>
           </c:when>
           <c:otherwise>
             <c:forEach items="${exceptions}" var="item">
               <tr>
-                <td class="mono"><c:out value="${item.id}"/></td>
-                <td><strong><c:out value="${item.employee}"/></strong><small><c:out value="${item.team}"/></small></td>
-                <td><c:out value="${item.date}"/></td>
-                <td><strong><c:out value="${item.type}"/></strong><small><c:out value="${item.detail}"/></small></td>
-                <td><span class="badge badge-${item.tone} badge-soft"><c:out value="${item.severity}"/></span></td>
-                <td><c:out value="${item.status}"/></td>
+                <td class="mono"><spring:message code="${messageCodes[item.id]}" text="${item.id}" htmlEscape="true"/></td>
+                <td><strong><spring:message code="${messageCodes[item.employee]}" text="${item.employee}" htmlEscape="true"/></strong><small><spring:message code="${messageCodes[item.team]}" text="${item.team}" htmlEscape="true"/></small></td>
+                <td><spring:message code="${messageCodes[item.date]}" text="${item.date}" htmlEscape="true"/></td>
+                <td><strong><spring:message code="${messageCodes[item.type]}" text="${item.type}" htmlEscape="true"/></strong><small><spring:message code="${messageCodes[item.detail]}" text="${item.detail}" htmlEscape="true"/></small></td>
+                <td><span class="badge badge-${item.tone} badge-soft"><spring:message code="${messageCodes[item.severity]}" text="${item.severity}" htmlEscape="true"/></span></td>
+                <td><spring:message code="${messageCodes[item.status]}" text="${item.status}" htmlEscape="true"/></td>
                 <td>
                   <button class="btn btn-ghost btn-xs" type="button" data-detail="${fn:escapeXml(item.id)} · ${fn:escapeXml(item.detail)}">
-                    Inspect
+                    <spring:message code="ui.1033"/>
                   </button>
                 </td>
               </tr>
@@ -80,44 +80,44 @@
   <section class="time-panel">
     <div class="time-panel-head">
       <div>
-        <span class="section-kicker">ROOT-CAUSE VIEW</span>
-        <h2>Missing punch · EX-184</h2>
+        <span class="section-kicker"><spring:message code="ui.266"/></span>
+        <h2><spring:message code="ui.1034"/></h2>
       </div>
     </div>
     <div class="time-panel-body">
       <div class="component-row">
-        <span class="badge badge-error">Critical</span>
-        <span class="badge badge-outline">Payroll blocker</span>
+        <span class="badge badge-error"><spring:message code="ui.670"/></span>
+        <span class="badge badge-outline"><spring:message code="ui.267"/></span>
       </div>
-      <p>Leo Marić started at 08:30 on 14 September. No clock-out is present after the facilities shift handover.</p>
+      <p><spring:message code="ui.1035"/></p>
       <ul class="clock-steps">
-        <li><span class="marker">1</span><span><strong>08:30 · Clock-in captured</strong><small>Web terminal</small></span></li>
+        <li><span class="marker">1</span><span><strong><spring:message code="ui.1036"/></strong><small><spring:message code="ui.1037"/></small></span></li>
         <li>
           <span class="marker">2</span>
-          <span><strong>17:00 · Shift scheduled to end</strong><small>Operations rota</small></span>
+          <span><strong><spring:message code="ui.1038"/></strong><small><spring:message code="ui.1039"/></small></span>
         </li>
         <li>
           <span class="marker">!</span>
-          <span><strong>Clock-out missing</strong><small>Employee correction required</small></span>
+          <span><strong><spring:message code="ui.272"/></strong><small><spring:message code="ui.273"/></small></span>
         </li>
       </ul>
-      <a class="btn btn-primary btn-sm" href="${pageContext.request.contextPath}/time/timesheet">Open correction form ↗</a>
+      <a class="btn btn-primary btn-sm" href="${pageContext.request.contextPath}/time/timesheet"><spring:message code="ui.1040"/></a>
     </div>
   </section>
   <section class="time-panel">
     <div class="time-panel-head">
       <div>
-        <span class="section-kicker">EXCEPTION POLICY</span>
-        <h2>Resolution sequence</h2>
+        <span class="section-kicker"><spring:message code="ui.275"/></span>
+        <h2><spring:message code="ui.276"/></h2>
       </div>
     </div>
     <div class="time-panel-body">
       <ul class="time-insight-list">
-        <li><strong>Employee supplies evidence</strong><small>Proposed time range and reason.</small></li>
-        <li><strong>Manager confirms</strong><small>Checks schedule, access and handover context.</small></li>
-        <li><strong>Payroll recalculates</strong><small>Only approved changes should affect paid hours.</small></li>
+        <li><strong><spring:message code="ui.1041"/></strong><small><spring:message code="ui.1042"/></small></li>
+        <li><strong><spring:message code="ui.1043"/></strong><small><spring:message code="ui.1044"/></small></li>
+        <li><strong><spring:message code="ui.1045"/></strong><small><spring:message code="ui.1046"/></small></li>
       </ul>
-      <div class="alert alert-info">ⓘ The matrix intentionally leaves this day at zero until the exception is resolved.</div>
+      <div class="alert alert-info"><spring:message code="ui.1047"/></div>
     </div>
   </section>
 </div>

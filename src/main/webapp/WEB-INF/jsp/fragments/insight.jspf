@@ -1,14 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <aside class="card insight-card">
   <div class="card-body">
-    <span class="section-kicker">SIGNAL & CONTEXT</span>
-    <h2><c:out value="${demo.insightTitle}"/></h2>
-    <p><c:out value="${demo.insightBody}"/></p>
+    <span class="section-kicker"><spring:message code="ui.842"/></span>
+    <h2><spring:message code="${messageCodes[demo.insightTitle]}" text="${demo.insightTitle}" htmlEscape="true"/></h2>
+    <p><spring:message code="${messageCodes[demo.insightBody]}" text="${demo.insightBody}" htmlEscape="true"/></p>
     <div class="insight-progress">
-      <div><span>Overall progress</span><strong>${demo.progress}%</strong></div>
+      <div><span><spring:message code="ui.843"/></span><strong>${demo.progress}%</strong></div>
       <progress class="progress progress-primary" value="${demo.progress}" max="100" aria-label="Overall progress ${demo.progress} percent">
       </progress>
     </div>
-    <div class="insight-foot"><span class="status-dot"></span>Updated just now <span aria-hidden="true">↗</span></div>
+    <div class="insight-foot"><span class="status-dot"></span><spring:message code="ui.844"/> <span aria-hidden="true">↗</span></div>
   </div>
 </aside>

@@ -1,6 +1,7 @@
 package com.example.daisyshowcase;
 
 import com.example.daisyshowcase.service.ShowcaseService;
+import jakarta.servlet.RequestDispatcher;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,7 +19,7 @@ class ShowcaseMvcTest {
     @Autowired ShowcaseService showcase;
 
     @Test void everyShowcaseRouteResolvesToItsJsp() throws Exception {
-        assertThat(showcase.pages()).hasSize(30);
+        assertThat(showcase.pages()).hasSize(31);
         for (var page : showcase.pages().stream().filter(p->!p.category().equals("Time management")).toList()) {
             mvc.perform(get("/showcase/"+page.slug()))
                 .andExpect(status().isOk())
@@ -32,6 +33,31 @@ class ShowcaseMvcTest {
             .andExpect(status().isOk()).andExpect(model().attributeExists("records","resultCount"));
         mvc.perform(get("/showcase/data").param("q","impossible query"))
             .andExpect(model().attribute("resultCount",0));
+    }
+
+    @Test void croatianIsDefaultAndEnglishCanBeSelected() throws Exception {
+        mvc.perform(get("/showcase/analytics"))
+            .andExpect(status().isOk())
+            .andExpect(model().attribute("currentLanguage", "hr"));
+        mvc.perform(get("/showcase/analytics").param("lang", "en"))
+            .andExpect(status().isOk())
+            .andExpect(model().attribute("currentLanguage", "en"))
+            .andExpect(cookie().exists("showcase-language"));
+    }
+
+    @Test void errorPageUsesStatusSpecificCopy() throws Exception {
+        mvc.perform(get("/error")
+                .requestAttr(RequestDispatcher.ERROR_STATUS_CODE, 404)
+                .requestAttr(RequestDispatcher.ERROR_REQUEST_URI, "/missing-page"))
+            .andExpect(status().isNotFound())
+            .andExpect(view().name("error"))
+            .andExpect(model().attribute("errorCategory", "notFound"))
+            .andExpect(model().attribute("errorPath", "/missing-page"));
+
+        mvc.perform(get("/error")
+                .requestAttr(RequestDispatcher.ERROR_STATUS_CODE, 500))
+            .andExpect(status().isInternalServerError())
+            .andExpect(model().attribute("errorCategory", "server"));
     }
 
     @Test void formRejectsInvalidAndAcceptsValidSubmission() throws Exception {

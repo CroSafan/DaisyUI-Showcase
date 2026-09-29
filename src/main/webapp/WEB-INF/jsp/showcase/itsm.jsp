@@ -2,42 +2,44 @@
 <%@ include file="../fragments/head.jspf" %>
 <%@ include file="../fragments/page-title.jspf" %>
 <%@ include file="../fragments/metrics.jspf" %>
+<spring:message code="ui.1148" var="msg_ui_1148"/>
+<spring:message code="ui.1149" var="msg_ui_1149"/>
 <div class="two-grid section-block">
   <section class="card surface-card">
     <div class="card-body">
-      <span class="section-kicker">SELECTED INCIDENT</span>
-      <h2>INC-4821 · VPN access intermittent</h2>
+      <span class="section-kicker"><spring:message code="ui.417"/></span>
+      <h2><spring:message code="ui.1181"/></h2>
       <div class="component-row">
-        <span class="badge badge-error">P1 · Escalated</span>
-        <span class="badge badge-warning">38m to SLA</span>
-        <span class="badge badge-outline">Network</span>
+        <span class="badge badge-error"><spring:message code="ui.1182"/></span>
+        <span class="badge badge-warning"><spring:message code="ui.1183"/></span>
+        <span class="badge badge-outline"><spring:message code="ui.936"/></span>
       </div>
-      <p>Users in the Zagreb office intermittently lose access after authentication. Assigned engineer: Nina Perić.</p>
-      <div class="alert alert-error">⚠ Escalation warning: response target is approaching.</div>
-      <label for="ticket-comment" class="field-hint">Internal comment</label>
-      <textarea id="ticket-comment" class="textarea textarea-bordered" placeholder="Add an investigation note..."></textarea>
-      <button class="btn btn-primary btn-sm" data-toast="Comment added in demo">Add comment</button>
+      <p><spring:message code="ui.937"/></p>
+      <div class="alert alert-error"><spring:message code="ui.938"/></div>
+      <label for="ticket-comment" class="field-hint"><spring:message code="ui.420"/></label>
+      <textarea id="ticket-comment" class="textarea textarea-bordered" placeholder="${msg_ui_1148}"></textarea>
+      <button class="btn btn-primary btn-sm" data-toast="${msg_ui_1149}"><spring:message code="ui.421"/></button>
     </div>
   </section>
   <section class="card surface-card">
     <div class="card-body">
-      <span class="section-kicker">TICKET TIMELINE</span>
-      <h2>Investigation history</h2>
+      <span class="section-kicker"><spring:message code="ui.422"/></span>
+      <h2><spring:message code="ui.423"/></h2>
       <ul class="activity-list">
         <li>
           <span class="activity-dot"></span>
-          <div><strong>Escalated to network team</strong><small>09:24 · Automated SLA rule</small></div>
+          <div><strong><spring:message code="ui.939"/></strong><small><spring:message code="ui.940"/></small></div>
         </li>
         <li>
           <span class="activity-dot"></span>
-          <div><strong>Nina Perić assigned</strong><small>09:12 · Service desk</small></div>
+          <div><strong><spring:message code="ui.941"/></strong><small><spring:message code="ui.942"/></small></div>
         </li>
         <li>
           <span class="activity-dot"></span>
-          <div><strong>Incident created</strong><small>09:06 · Employee portal</small></div>
+          <div><strong><spring:message code="ui.424"/></strong><small><spring:message code="ui.943"/></small></div>
         </li>
       </ul>
-      <div class="alert alert-success">✓ Core services remain healthy.</div>
+      <div class="alert alert-success"><spring:message code="ui.944"/></div>
     </div>
   </section>
 </div>

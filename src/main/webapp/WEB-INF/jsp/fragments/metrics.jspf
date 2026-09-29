@@ -4,11 +4,11 @@
     <article class="card metric-card">
       <div class="card-body">
         <div class="metric-top">
-          <span><c:out value="${metric.label}"/></span>
+          <span><spring:message code="${messageCodes[metric.label]}" text="${metric.label}" htmlEscape="true"/></span>
           <span class="metric-spark" aria-hidden="true">↗</span>
         </div>
-        <strong class="metric-value"><c:out value="${metric.value}"/></strong>
-        <span class="badge badge-${metric.tone} badge-soft"><c:out value="${metric.change}"/></span>
+        <strong class="metric-value"><spring:message code="${messageCodes[metric.value]}" text="${metric.value}" htmlEscape="true"/></strong>
+        <span class="badge badge-${metric.tone} badge-soft"><spring:message code="${messageCodes[metric.change]}" text="${metric.change}" htmlEscape="true"/></span>
       </div>
     </article>
   </c:forEach>

@@ -1,12 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<spring:message code="ui.1124" var="msg_ui_1124"/>
 <section class="card panel-card">
   <div class="panel-head">
     <div>
-      <span class="section-kicker">LIVE PREVIEW</span>
-      <h2><c:out value="${demo.tableTitle}"/></h2>
+      <span class="section-kicker"><spring:message code="ui.541"/></span>
+      <h2><spring:message code="${messageCodes[demo.tableTitle]}" text="${demo.tableTitle}" htmlEscape="true"/></h2>
     </div>
-    <button class="btn btn-primary btn-sm" type="button" data-toast="This is a showcase action">
-      <c:out value="${demo.primaryAction}"/>
+    <button class="btn btn-primary btn-sm" type="button" data-toast="${msg_ui_1124}">
+      <spring:message code="${messageCodes[demo.primaryAction]}" text="${demo.primaryAction}" htmlEscape="true"/>
       <span aria-hidden="true">↗</span>
     </button>
   </div>
@@ -14,23 +15,23 @@
     <table class="table table-zebra">
       <thead>
         <tr>
-          <th scope="col">Name / reference</th>
-          <th scope="col">Owner</th>
-          <th scope="col">Status</th>
-          <th scope="col">Value / timing</th>
-          <th scope="col"><span class="sr-only">Action</span></th>
+          <th scope="col"><spring:message code="ui.542"/></th>
+          <th scope="col"><spring:message code="ui.361"/></th>
+          <th scope="col"><spring:message code="ui.092"/></th>
+          <th scope="col"><spring:message code="ui.544"/></th>
+          <th scope="col"><span class="sr-only"><spring:message code="ui.264"/></span></th>
         </tr>
       </thead>
       <tbody>
         <c:forEach items="${demo.records}" var="record">
           <tr>
-            <td><strong><c:out value="${record.name}"/></strong><small><c:out value="${record.detail}"/></small></td>
-            <td><c:out value="${record.owner}"/></td>
-            <td><span class="badge badge-${record.tone} badge-soft"><c:out value="${record.status}"/></span></td>
-            <td class="mono"><c:out value="${record.value}"/></td>
+            <td><strong><spring:message code="${messageCodes[record.name]}" text="${record.name}" htmlEscape="true"/></strong><small><spring:message code="${messageCodes[record.detail]}" text="${record.detail}" htmlEscape="true"/></small></td>
+            <td><spring:message code="${messageCodes[record.owner]}" text="${record.owner}" htmlEscape="true"/></td>
+            <td><span class="badge badge-${record.tone} badge-soft"><spring:message code="${messageCodes[record.status]}" text="${record.status}" htmlEscape="true"/></span></td>
+            <td class="mono"><spring:message code="${messageCodes[record.value]}" text="${record.value}" htmlEscape="true"/></td>
             <td>
               <button class="btn btn-ghost btn-xs" type="button" data-detail="${fn:escapeXml(record.name)}" aria-label="View ${fn:escapeXml(record.name)}">
-                View ↗
+                <spring:message code="ui.845"/>
               </button>
             </td>
           </tr>

@@ -7,11 +7,11 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class IntakeForm {
-    @NotBlank(message="Name is required") private String name;
-    @NotBlank(message="Email is required") @Email(message="Enter a valid email address") private String email;
-    @NotBlank(message="Choose a department") private String department;
-    @NotNull(message="Enter a budget") @Min(value=100, message="Budget must be at least 100") private Integer budget;
-    @Size(max=500, message="Keep the description under 500 characters") private String description;
+    @NotBlank(message="{validation.name.required}") private String name;
+    @NotBlank(message="{validation.email.required}") @Email(message="{validation.email.invalid}") private String email;
+    @NotBlank(message="{validation.department.required}") private String department;
+    @NotNull(message="{validation.budget.required}") @Min(value=100, message="{validation.budget.minimum}") private Integer budget;
+    @Size(max=500, message="{validation.description.maximum}") private String description;
     private boolean urgent;
     public String getName() { return name; } public void setName(String name) { this.name=name; }
     public String getEmail() { return email; } public void setEmail(String email) { this.email=email; }

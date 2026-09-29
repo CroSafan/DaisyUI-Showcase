@@ -1,19 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <form class="time-filter" method="get" action="${pageContext.request.contextPath}${current.path}">
   <div class="time-filter-left">
-    <span class="section-kicker">VIEWING</span>
-    <strong><c:out value="${periodLabel}"/></strong>
-    <span class="badge badge-ghost"><c:out value="${team}"/> team</span>
+    <span class="section-kicker"><spring:message code="ui.285"/></span>
+    <strong><spring:message code="${messageCodes[periodLabel]}" text="${periodLabel}" htmlEscape="true"/></strong>
+    <span class="badge badge-ghost"><spring:message code="${messageCodes[team]}" text="${team}" htmlEscape="true"/> <spring:message code="ui.089"/></span>
   </div>
   <div class="time-filter-actions">
-    <label class="sr-only" for="time-month">Month</label>
+    <label class="sr-only" for="time-month"><spring:message code="ui.283"/></label>
     <input id="time-month" class="input input-bordered input-sm" type="month" name="month" value="${period}">
-    <label class="sr-only" for="time-team">Department</label>
+    <label class="sr-only" for="time-team"><spring:message code="ui.282"/></label>
     <select id="time-team" class="select select-bordered select-sm" name="team">
       <c:forEach items="${teams}" var="option">
-        <option value="${option}" ${team eq option ? 'selected' : ''}><c:out value="${option}"/></option>
+        <option value="${option}" ${team eq option ? 'selected' : ''}><spring:message code="${messageCodes[option]}" text="${option}" htmlEscape="true"/></option>
       </c:forEach>
     </select>
-    <button type="submit" class="btn btn-primary btn-sm">Apply</button>
+    <button type="submit" class="btn btn-primary btn-sm"><spring:message code="ui.079"/></button>
   </div>
 </form>

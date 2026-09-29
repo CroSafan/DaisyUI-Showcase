@@ -1,13 +1,27 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<spring:message code="ui.1204" var="selectionSuffix"/>
+<spring:message code="ui.833" var="shownSuffix"/>
+<spring:message code="ui.1205" var="actionComplete"/>
+<spring:message code="ui.1206" var="approvedInDemo"/>
+<spring:message code="ui.1207" var="rejectedInDemo"/>
+<spring:message code="ui.1121" var="msg_ui_1121"/>
+<spring:message code="ui.1122" var="msg_ui_1122"/>
+<spring:message code="ui.1123" var="msg_ui_1123"/>
+<spring:message code="ui.006" var="msg_ui_006"/>
+<spring:message code="ui.007" var="msg_ui_007"/>
+<spring:message code="ui.008" var="msg_ui_008"/>
+<spring:message code="ui.277" var="msg_ui_277"/>
+<spring:message code="ui.1577" var="pageDescription"/>
 <!doctype html>
-<html lang="hr" data-theme="${current.slug eq 'erp' or current.slug eq 'crm' ? 'enterprise' : 'corporate'}" data-page-theme="${current.slug eq 'erp' or current.slug eq 'crm' ? 'enterprise' : ''}" data-context-path="${pageContext.request.contextPath}">
+<html lang="${currentLanguage}" data-theme="${current.slug eq 'erp' or current.slug eq 'crm' ? 'enterprise' : 'corporate'}" data-page-theme="${current.slug eq 'erp' or current.slug eq 'crm' ? 'enterprise' : ''}" data-context-path="${pageContext.request.contextPath}" data-selection-suffix="${selectionSuffix}" data-shown-suffix="${shownSuffix}" data-action-complete="${actionComplete}" data-approved-in-demo="${approvedInDemo}" data-rejected-in-demo="${rejectedInDemo}">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="DaisyUI enterprise showcase built with Spring Boot, JSP, and Maven.">
-    <title><c:out value="${empty current ? pageTitle : current.title}"/> · DaisyUI Showcase</title>
+    <meta name="description" content="${pageDescription}">
+    <title><spring:message code="${messageCodes[empty current ? pageTitle : current.title]}" text="${empty current ? pageTitle : current.title}" htmlEscape="true"/> · DaisyUI Showcase</title>
     <script>
       try{document.documentElement.dataset.theme=document.documentElement.dataset.pageTheme||localStorage.getItem('showcase-theme')||'corporate'}catch(e){}
     </script>
@@ -18,72 +32,81 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/enterprise.css?v=1.0.0">
   </head>
   <body>
-    <a class="skip-link" href="#main-content" data-i18n="Skip to content">Skip to content</a>
+    <a class="skip-link" href="#main-content"><spring:message code="ui.001"/></a>
     <div class="app-shell">
-      <input id="nav-drawer" class="drawer-toggle" type="checkbox" aria-label="Toggle navigation">
-      <aside class="sidebar" id="sidebar" aria-label="Showcase navigation">
-        <a class="brand" href="${pageContext.request.contextPath}/" aria-label="DaisyUI Showcase home">
+      <input id="nav-drawer" class="drawer-toggle" type="checkbox" aria-label="${msg_ui_1121}">
+      <aside class="sidebar" id="sidebar" aria-label="${msg_ui_1122}">
+        <a class="brand" href="${pageContext.request.contextPath}/" aria-label="${msg_ui_1123}">
           <span class="brand-mark">✦</span>
-          <span><strong>DAISY<span class="brand-accent">/</span>LAB</strong><small>Enterprise showcase</small></span>
+          <span><strong>DAISY<span class="brand-accent">/</span>LAB</strong><small><spring:message code="ui.841"/></small></span>
         </a>
         <div class="sidebar-scroll">
-          <p class="nav-caption" data-i18n="EXPLORE THE LIBRARY">EXPLORE THE LIBRARY</p>
+          <p class="nav-caption"><spring:message code="ui.002"/></p>
           <c:forEach items="${fn:split('Foundations|Business applications|Enterprise solutions|Time management','|')}" var="group">
             <div class="nav-group">
-              <h2><c:out value="${group}"/></h2>
+              <h2><spring:message code="${messageCodes[group]}" text="${group}" htmlEscape="true"/></h2>
               <nav aria-label="${group}">
                 <c:forEach items="${navigation}" var="item">
-                  <c:if test="${item.category eq group}">
+                  <c:if test="${item.category eq group and item.slug ne 'workspace-form'}">
                     <a class="nav-link ${current.slug eq item.slug ? 'active' : ''}" href="${pageContext.request.contextPath}${item.path}" ${current.slug eq item.slug ? 'aria-current="page"' : ''}>
                       <span class="nav-icon" aria-hidden="true">${item.icon}</span>
-                      <span><c:out value="${item.title}"/></span>
+                      <span><spring:message code="${messageCodes[item.title]}" text="${item.title}" htmlEscape="true"/></span>
                     </a>
                   </c:if>
                 </c:forEach>
               </nav>
             </div>
           </c:forEach>
+          <div class="nav-group">
+            <h2><spring:message code="workspace.form.sidebarGroup"/></h2>
+            <nav aria-label="${msg_ui_1122}">
+              <a class="nav-link" href="${pageContext.request.contextPath}/showcase/workspace-form">
+                <span class="nav-icon" aria-hidden="true">▧</span>
+                <span><spring:message code="ui.1587"/></span>
+              </a>
+            </nav>
+          </div>
         </div>
         <div class="sidebar-bottom">
           <span class="status-dot"></span>
-          <span data-i18n="Built with Java + JSP">Built with Java + JSP</span>
+          <span><spring:message code="ui.003"/></span>
           <span class="version">v1.1</span>
         </div>
       </aside>
-      <label class="drawer-overlay" for="nav-drawer" aria-label="Close navigation"></label>
+      <label class="drawer-overlay" for="nav-drawer" aria-label="${msg_ui_008}"></label>
       <div class="workspace">
         <header class="topbar">
           <div class="topbar-start">
-            <label class="btn btn-ghost btn-square mobile-menu" for="nav-drawer" aria-label="Open navigation" data-i18n-attr="aria-label">
+            <label class="btn btn-ghost btn-square mobile-menu" for="nav-drawer" aria-label="${msg_ui_007}">
               ☰
             </label>
             <span class="topbar-crumb">
-              <span data-i18n="Showcase">Showcase</span>
+              <span><spring:message code="ui.004"/></span>
               <span aria-hidden="true">/</span>
-              <strong><c:out value="${empty current ? 'Overview' : current.title}"/></strong>
+              <strong><spring:message code="${messageCodes[empty current ? 'Overview' : current.title]}" text="${empty current ? 'Overview' : current.title}" htmlEscape="true"/></strong>
             </span>
           </div>
           <div class="topbar-end">
             <span class="topbar-tag">SPRING BOOT · JSP</span>
             <label class="theme-picker">
-              <span class="sr-only" data-i18n="Language">Language</span>
-              <select class="select select-sm" data-language-select aria-label="Language">
-                <option value="hr">Hrvatski</option>
-                <option value="en">English</option>
+              <span class="sr-only"><spring:message code="ui.277"/></span>
+              <select class="select select-sm" data-language-select aria-label="${msg_ui_277}">
+                <option value="hr" ${currentLanguage eq 'hr' ? 'selected' : ''}>Hrvatski</option>
+                <option value="en" ${currentLanguage eq 'en' ? 'selected' : ''}><spring:message code="ui.615"/></option>
               </select>
             </label>
             <label class="theme-picker">
-              <span class="sr-only" data-i18n="Theme">Theme</span>
-              <select class="select select-sm" data-theme-select aria-label="Choose theme">
-                <option value="light">Light</option>
-                <option value="dark">Dark</option>
-                <option value="corporate">Corporate</option>
-                <option value="enterprise">Enterprise</option>
-                <option value="business">Business</option>
-                <option value="black">High contrast</option>
-                <option value="synthwave">Creative</option>
-                <option value="neutral">Neutral</option>
-                <option value="cupcake">Colorful</option>
+              <span class="sr-only"><spring:message code="ui.009"/></span>
+              <select class="select select-sm" data-theme-select aria-label="${msg_ui_006}">
+                <option value="light"><spring:message code="ui.616"/></option>
+                <option value="dark"><spring:message code="ui.617"/></option>
+                <option value="corporate"><spring:message code="ui.618"/></option>
+                <option value="enterprise"><spring:message code="ui.469"/></option>
+                <option value="business"><spring:message code="ui.619"/></option>
+                <option value="black"><spring:message code="ui.594"/></option>
+                <option value="synthwave"><spring:message code="ui.595"/></option>
+                <option value="neutral"><spring:message code="ui.492"/></option>
+                <option value="cupcake"><spring:message code="ui.596"/></option>
               </select>
             </label>
             <span class="avatar placeholder"><span class="avatar-circle">JD</span></span>

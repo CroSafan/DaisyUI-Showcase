@@ -3,14 +3,14 @@
 <%@ include file="../fragments/page-title.jspf" %>
 <%@ include file="../fragments/time-nav.jspf" %>
 <div class="alert alert-info">
-  ⓘ This is an illustrative company calendar. Dates and observances are fictional and are not legal or payroll guidance.
+  <spring:message code="ui.1048"/>
 </div>
 <div class="two-grid time-section">
   <section class="time-panel">
     <div class="time-panel-head">
       <div>
-        <span class="section-kicker">CALENDAR REGISTER</span>
-        <h2>Observed days & closures</h2>
+        <span class="section-kicker"><spring:message code="ui.1049"/></span>
+        <h2><spring:message code="ui.170"/></h2>
       </div>
       <span class="badge badge-outline">2026</span>
     </div>
@@ -19,15 +19,15 @@
         <c:forEach items="${holidays}" var="item">
           <div class="holiday-item">
             <span class="holiday-date">
-              <c:out value="${fn:substring(item.date,5,7)}"/>
+              <spring:message code="${messageCodes[fn:substring(item.date,5,7)]}" text="${fn:substring(item.date,5,7)}" htmlEscape="true"/>
               <br>
-              <c:out value="${fn:substring(item.date,8,10)}"/>
+              <spring:message code="${messageCodes[fn:substring(item.date,8,10)]}" text="${fn:substring(item.date,8,10)}" htmlEscape="true"/>
             </span>
             <span>
-              <strong><c:out value="${item.title}"/></strong>
-              <small><c:out value="${item.type}"/> · <c:out value="${item.date}"/></small>
+              <strong><spring:message code="${messageCodes[item.title]}" text="${item.title}" htmlEscape="true"/></strong>
+              <small><spring:message code="${messageCodes[item.type]}" text="${item.type}" htmlEscape="true"/> · <spring:message code="${messageCodes[item.date]}" text="${item.date}" htmlEscape="true"/></small>
             </span>
-            <span class="badge badge-${item.tone} badge-soft"><c:out value="${item.region}"/></span>
+            <span class="badge badge-${item.tone} badge-soft"><spring:message code="${messageCodes[item.region]}" text="${item.region}" htmlEscape="true"/></span>
           </div>
         </c:forEach>
       </div>
@@ -36,23 +36,23 @@
   <section class="time-panel">
     <div class="time-panel-head">
       <div>
-        <span class="section-kicker">REGIONAL RULES</span>
-        <h2>Calendar assignment</h2>
+        <span class="section-kicker"><spring:message code="ui.171"/></span>
+        <h2><spring:message code="ui.172"/></h2>
       </div>
     </div>
     <div class="time-panel-body">
-      <div class="time-status-line"><span>Zagreb campus</span><strong>Central calendar</strong></div>
-      <div class="time-status-line" style="margin-top:.5rem"><span>Split office</span><strong>Coastal calendar</strong></div>
+      <div class="time-status-line"><span><spring:message code="ui.565"/></span><strong><spring:message code="ui.1050"/></strong></div>
+      <div class="time-status-line" style="margin-top:.5rem"><span><spring:message code="ui.566"/></span><strong><spring:message code="ui.569"/></strong></div>
       <div class="time-status-line" style="margin-top:.5rem">
-        <span>Remote employees</span>
-        <strong>Contract region</strong>
+        <span><spring:message code="ui.567"/></span>
+        <strong><spring:message code="ui.1051"/></strong>
       </div>
       <div class="divider"></div>
-      <h3>Holiday handling</h3>
+      <h3><spring:message code="ui.1052"/></h3>
       <ul class="time-insight-list">
-        <li><strong>Non-working days</strong><small>Displayed as H in the department clocking matrix.</small></li>
-        <li><strong>Leave overlap</strong><small>Managers review requests crossing a regional holiday.</small></li>
-        <li><strong>Working on a closure</strong><small>Requires a schedule exception and overtime review.</small></li>
+        <li><strong><spring:message code="ui.173"/></strong><small><spring:message code="ui.174"/></small></li>
+        <li><strong><spring:message code="ui.175"/></strong><small><spring:message code="ui.176"/></small></li>
+        <li><strong><spring:message code="ui.177"/></strong><small><spring:message code="ui.178"/></small></li>
       </ul>
     </div>
   </section>
@@ -61,39 +61,39 @@
   <section class="time-panel">
     <div class="time-panel-head">
       <div>
-        <span class="section-kicker">ENTITLEMENT MODEL</span>
-        <h2>Time-away categories</h2>
+        <span class="section-kicker"><spring:message code="ui.179"/></span>
+        <h2><spring:message code="ui.180"/></h2>
       </div>
     </div>
     <div class="time-panel-body">
       <table class="time-stat-table">
         <thead>
           <tr>
-            <th>Category</th>
-            <th>Example allowance</th>
-            <th>Approval</th>
+            <th><spring:message code="ui.1053"/></th>
+            <th><spring:message code="ui.181"/></th>
+            <th><spring:message code="ui.1054"/></th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Annual leave</td>
-            <td>25 days / year</td>
-            <td>Manager</td>
+            <td><spring:message code="ui.073"/></td>
+            <td><spring:message code="ui.1055"/></td>
+            <td><spring:message code="ui.557"/></td>
           </tr>
           <tr>
-            <td>Personal day</td>
-            <td>2 days / year</td>
-            <td>Manager</td>
+            <td><spring:message code="ui.074"/></td>
+            <td><spring:message code="ui.1056"/></td>
+            <td><spring:message code="ui.557"/></td>
           </tr>
           <tr>
-            <td>Company closure</td>
-            <td>Calendar based</td>
-            <td>Automatic</td>
+            <td><spring:message code="ui.182"/></td>
+            <td><spring:message code="ui.183"/></td>
+            <td><spring:message code="ui.184"/></td>
           </tr>
           <tr>
-            <td>Unpaid leave</td>
-            <td>Case by case</td>
-            <td>People team</td>
+            <td><spring:message code="ui.075"/></td>
+            <td><spring:message code="ui.1057"/></td>
+            <td><spring:message code="ui.558"/></td>
           </tr>
         </tbody>
       </table>
@@ -102,20 +102,20 @@
   <section class="time-panel">
     <div class="time-panel-head">
       <div>
-        <span class="section-kicker">CONNECTED VIEW</span>
-        <h2>September closure impact</h2>
+        <span class="section-kicker"><spring:message code="ui.185"/></span>
+        <h2><spring:message code="ui.186"/></h2>
       </div>
     </div>
     <div class="time-panel-body">
       <div class="time-kpi-strip">
-        <div class="time-kpi"><small>Observed days</small><strong>1</strong></div>
-        <div class="time-kpi"><small>Teams affected</small><strong>3</strong></div>
-        <div class="time-kpi"><small>Matrix code</small><strong>H</strong></div>
+        <div class="time-kpi"><small><spring:message code="ui.562"/></small><strong>1</strong></div>
+        <div class="time-kpi"><small><spring:message code="ui.563"/></small><strong>3</strong></div>
+        <div class="time-kpi"><small><spring:message code="ui.187"/></small><strong>H</strong></div>
       </div>
       <p>
-        Company Recharge Day on 18 September is marked separately from worked time and paid leave in the department matrix.
+        <spring:message code="ui.1058"/>
       </p>
-      <a class="btn btn-primary btn-sm" href="${pageContext.request.contextPath}/time/department">Inspect the month ↗</a>
+      <a class="btn btn-primary btn-sm" href="${pageContext.request.contextPath}/time/department"><spring:message code="ui.1059"/></a>
     </div>
   </section>
 </div>

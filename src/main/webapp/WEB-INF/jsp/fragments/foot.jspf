@@ -2,7 +2,7 @@
 </main>
 <footer class="footer-bar">
   <span>DaisyUI Enterprise Showcase</span>
-  <span>30 experiences · Spring MVC · JSP · Maven</span>
+  <span><spring:message code="ui.840"/></span>
 </footer>
 </div>
 </div>
